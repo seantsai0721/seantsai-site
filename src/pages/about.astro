@@ -4,18 +4,48 @@ import { site } from '../site';
 
 // Edit these lists to update your CV.
 const education = [
-  { when: 'Now', what: 'Master’s program, Department of Landscape Architecture', where: 'Fu Jen Catholic University, Taipei' },
-  { when: '', what: 'Bachelor’s program, Department of Landscape Architecture', where: 'Fu Jen Catholic University, Taipei' },
+  { when: '2026–', what: 'Master’s program, Department of Landscape Architecture', where: 'Fu Jen Catholic University, Taipei · Admitted ranked 1st' },
+  { when: '2022–26', what: 'Bachelor of Landscape Architecture', where: 'Fu Jen Catholic University, Taipei · GPA 4.0/4.0, ranked 1st of 35' },
 ];
 
-const awards = [
-  { when: '2026', what: 'Honorable Mention, 20th National Student Landscape Design Competition', note: 'After the Lagoon' },
-  { when: '2024', what: '1st Place, Fu Jen Catholic University Campus Sustainability and Circular Innovation Proposal Competition' },
-  { when: '2024', what: '3rd Place, Yang Light Rail Youth Design Competition' },
-  { when: '2024', what: 'Honorable Mention, New Taipei City University Carbon Reduction Product Competition' },
-  { when: '2024', what: 'Finalist, EVA Air ESG Sustainable Innovation Design Competition' },
-  { when: '2022–24', what: 'Academic Excellence Award, ranked 1st, five semesters', note: 'Fu Jen Catholic University' },
-  { when: '2022–24', what: 'Rao Wen-Zhong Memorial Award for Outstanding Design, 1st place, five semesters', note: 'Basic Design I–II, Landscape Design I–III' },
+const experience = [
+  { when: '2025', what: 'Intern, Da-Guan Planning and Design Consultants', note: 'Jul–Aug' },
+  { when: '2025', what: 'Part-time assistant, Takano Landscape Planning Taiwan', note: 'Jan–Feb' },
+  { when: '2024', what: 'Intern, Takano Landscape Planning Taiwan', note: 'Jul–Aug' },
+  { when: '2025–26', what: 'Chair, Graduation Exhibition Committee', note: 'Department of Landscape Architecture, Fu Jen' },
+  { when: '2024–25', what: 'President, Landscape Architecture Student Association', note: 'Fu Jen Catholic University' },
+];
+
+const awardGroups = [
+  {
+    title: 'International',
+    items: [
+      { when: '2026', what: 'First Place Award, IFLA Global Studio Program' },
+      { when: '2026', what: 'Honorary Award, IFLA Global Studio Program, Wuhan Charrette' },
+      { when: '2025', what: 'Second Prize, IFLA Global Studio Program, Nantes Charrette' },
+      { when: '2025', what: 'Second Prize, IFLA Global Studio Program, Mumbai Charrette' },
+    ],
+  },
+  {
+    title: 'National',
+    items: [
+      { when: '2026', what: 'Honorable Mention, 20th National Student Landscape Design Competition', note: 'After the Lagoon' },
+      { when: '2025', what: '3rd Place, Embrace G.R.A.C.E Sustainability Expo Exhibition Design Competition' },
+      { when: '2025', what: 'Outstanding Team, Human-Centred Streets Hackathon, university division' },
+      { when: '2024', what: '1st Place, Fu Jen Catholic University Campus Sustainability and Circular Innovation Proposal Competition' },
+      { when: '2024', what: '3rd Place, Yang Light Rail Youth Design Competition' },
+      { when: '2024', what: 'Selected, EVA Air ESG Sustainable Innovation Design Competition' },
+      { when: '2024', what: 'Honorable Mention, New Taipei City University Carbon Reduction Product Competition' },
+    ],
+  },
+  {
+    title: 'Academic',
+    items: [
+      { when: '', what: 'Member, Phi Tau Phi Scholastic Honor Society' },
+      { when: '2022–26', what: 'Academic Excellence Award, ranked 1st, every year', note: 'Fu Jen Catholic University' },
+      { when: '2022–25', what: 'Rao Wen-Zhong Memorial Award for Outstanding Design, 1st place', note: '3rd place in 2026' },
+    ],
+  },
 ];
 ---
 
@@ -49,13 +79,24 @@ const awards = [
     </section>
 
     <section class="about-grid">
-      <h2 class="mono">Awards</h2>
+      <h2 class="mono">Experience</h2>
       <ul class="cv">
-        {awards.map((a) => (
-          <li><span class="when">{a.when}</span><span>{a.what}{a.note && <small>{a.note}</small>}</span></li>
+        {experience.map((e) => (
+          <li><span class="when">{e.when}</span><span>{e.what}{e.note && <small>{e.note}</small>}</span></li>
         ))}
       </ul>
     </section>
+
+    {awardGroups.map((g, gi) => (
+      <section class="about-grid">
+        <h2 class="mono">{gi === 0 ? 'Awards · ' : ''}{g.title}</h2>
+        <ul class="cv">
+          {g.items.map((a) => (
+            <li><span class="when">{a.when}</span><span>{a.what}{a.note && <small>{a.note}</small>}</span></li>
+          ))}
+        </ul>
+      </section>
+    ))}
 
     <section class="about-grid">
       <h2 class="mono">Contact</h2>
