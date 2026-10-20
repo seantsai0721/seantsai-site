@@ -1,0 +1,14 @@
+---
+// Credits for team work: advisor, team members, award.
+// <Credits items={[{ label: "Advisor", value: "…" }, { label: "Award", value: "…", highlight: true }]} />
+interface Props { items: { label: string; value: string; highlight?: boolean }[] }
+const { items } = Astro.props;
+---
+<dl class="credits">
+  {items.map((i) => (
+    <div style="display:contents" class={i.highlight ? 'award' : undefined}>
+      <dt class="mono">{i.label}</dt>
+      <dd>{i.value}</dd>
+    </div>
+  ))}
+</dl>

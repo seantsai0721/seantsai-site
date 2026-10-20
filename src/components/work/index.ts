@@ -8,6 +8,7 @@ import Systems from './Systems.astro';
 import Timeline from './Timeline.astro';
 import Detail from './Detail.astro';
 import SeasonCalendar from './SeasonCalendar.astro';
+import Credits from './Credits.astro';
 
 export const workComponents = {
   Section,
@@ -19,4 +20,5 @@ export const workComponents = {
   Timeline,
   Detail,
   SeasonCalendar,
+  Credits,
 };

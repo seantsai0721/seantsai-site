@@ -9,7 +9,7 @@ const education = [
 ];
 
 const experience = [
-  { when: '2025', what: 'Intern, Da-Guan Planning and Design Consultants', note: 'Jul–Aug' },
+  { when: '2025', what: 'Intern, dA VISION DESIGN', note: 'Jul–Aug' },
   { when: '2025', what: 'Part-time assistant, Takano Landscape Planning Taiwan', note: 'Jan–Feb' },
   { when: '2024', what: 'Intern, Takano Landscape Planning Taiwan', note: 'Jul–Aug' },
   { when: '2025–26', what: 'Chair, Graduation Exhibition Committee', note: 'Department of Landscape Architecture, Fu Jen' },
@@ -20,8 +20,8 @@ const awardGroups = [
   {
     title: 'International',
     items: [
-      { when: '2026', what: 'First Place Award, IFLA Global Studio Program' },
-      { when: '2026', what: 'Honorary Award, IFLA Global Studio Program, Wuhan Charrette' },
+      { when: '2025', what: 'First Place Award, IFLA Global Studio Program', note: 'Overall ranking across Nantes, Santiago, Mumbai and Wuhan', href: '/works/ifla-global-studio-2025/' },
+      { when: '2025', what: 'Honorary Award, IFLA Global Studio Program, Wuhan Charrette' },
       { when: '2025', what: 'Second Prize, IFLA Global Studio Program, Nantes Charrette' },
       { when: '2025', what: 'Second Prize, IFLA Global Studio Program, Mumbai Charrette' },
     ],
@@ -41,7 +41,7 @@ const awardGroups = [
   {
     title: 'Academic',
     items: [
-      { when: '', what: 'Member, Phi Tau Phi Scholastic Honor Society' },
+      { when: '2026', what: 'Member, Phi Tau Phi Scholastic Honor Society' },
       { when: '2022–26', what: 'Academic Excellence Award, ranked 1st, every year', note: 'Fu Jen Catholic University' },
       { when: '2022–25', what: 'Rao Wen-Zhong Memorial Award for Outstanding Design, 1st place', note: '3rd place in 2026' },
     ],
@@ -92,7 +92,7 @@ const awardGroups = [
         <h2 class="mono">{gi === 0 ? 'Awards · ' : ''}{g.title}</h2>
         <ul class="cv">
           {g.items.map((a) => (
-            <li><span class="when">{a.when}</span><span>{a.what}{a.note && <small>{a.note}</small>}</span></li>
+            <li><span class="when">{a.when}</span><span>{a.href ? <a href={a.href}>{a.what}</a> : a.what}{a.note && <small>{a.note}</small>}</span></li>
           ))}
         </ul>
       </section>

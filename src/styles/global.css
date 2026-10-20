@@ -197,3 +197,16 @@ main { animation: enter .5s ease both; }
   .stats { grid-template-columns: 1fr; }
 }
 .block .body > .axon + p, .block .body > .timeline + p { margin-top: 24px; }
+
+/* team credits inside a section */
+.credits { display: grid; grid-template-columns: 110px minmax(0, 1fr); margin: 24px 0 8px; border-top: 1px solid var(--fg); }
+.credits dt, .credits dd { padding: 10px 0; border-bottom: 1px solid var(--rule); margin: 0; }
+.credits dt { color: var(--muted); }
+.credits dd { font-size: 14px; line-height: 1.5; }
+.credits .award dd { color: var(--ochre); font-weight: 600; }
+.cert { max-width: 280px; }
+.cert img { border: 1px solid var(--rule); }
+
+/* home: an unpaired last card spans the full row */
+.cards .feature:nth-child(even):last-child { grid-column: 1 / -1; }
+.cards .feature:nth-child(even):last-child img { aspect-ratio: 21 / 9; }
