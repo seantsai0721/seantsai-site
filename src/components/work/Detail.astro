@@ -1,0 +1,20 @@
+---
+// A drawing beside a short list of facts.
+// <Detail src="…" alt="…" items={[{ title: "Solar roof", text: "About 700 m²" }]} />
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  items: { title: string; text: string }[];
+}
+const { src, alt, caption, items } = Astro.props;
+---
+<div class="axon">
+  <figure>
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    {caption && <figcaption class="mono">{caption}</figcaption>}
+  </figure>
+  <ul>
+    {items.map((i) => <li><b>{i.title}</b>{i.text}</li>)}
+  </ul>
+</div>

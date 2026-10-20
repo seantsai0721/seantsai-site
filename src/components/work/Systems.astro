@@ -1,0 +1,18 @@
+---
+// Two coded lists side by side, e.g. A1–A4 and W1–W4.
+// <Systems groups={[{ title: "…", tone: "teal", items: [{ code: "A1", text: "…" }] }]} />
+interface Props {
+  groups: { title: string; tone?: 'teal' | 'ochre'; items: { code: string; text: string }[] }[];
+}
+const { groups } = Astro.props;
+---
+<div class="systems">
+  {groups.map((g) => (
+    <div class={g.tone === 'ochre' ? 'sys wet' : 'sys'}>
+      <h4>{g.title}</h4>
+      <ol>
+        {g.items.map((i) => <li><code>{i.code}</code><span>{i.text}</span></li>)}
+      </ol>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+// Edit these lists to update your CV.
+const education = [
+  { when: 'Now', what: 'Master’s program, Department of Landscape Architecture', where: 'Fu Jen Catholic University, Taipei' },
+  { when: '', what: 'Bachelor’s program, Department of Landscape Architecture', where: 'Fu Jen Catholic University, Taipei' },
+];
+
+const awards = [
+  { when: '2026', what: 'Honorable Mention, 20th National Student Landscape Design Competition', note: 'After the Lagoon' },
+  { when: '2024', what: '1st Place, Fu Jen Catholic University Campus Sustainability and Circular Innovation Proposal Competition' },
+  { when: '2024', what: '3rd Place, Yang Light Rail Youth Design Competition' },
+  { when: '2024', what: 'Honorable Mention, New Taipei City University Carbon Reduction Product Competition' },
+  { when: '2024', what: 'Finalist, EVA Air ESG Sustainable Innovation Design Competition' },
+  { when: '2022–24', what: 'Academic Excellence Award, ranked 1st, five semesters', note: 'Fu Jen Catholic University' },
+  { when: '2022–24', what: 'Rao Wen-Zhong Memorial Award for Outstanding Design, 1st place, five semesters', note: 'Basic Design I–II, Landscape Design I–III' },
+];
+---
+
+<Base title="About" current="about">
+  <div class="wrap">
+    <div class="p-head">
+      <div class="eyebrow mono"><span>About</span><span>{site.city}</span></div>
+      <h1>{site.name}</h1>
+      <p class="zh" lang="zh-Hant">{site.nameZh}</p>
+    </div>
+
+    <section class="about-grid">
+      <h2 class="mono">Profile</h2>
+      <div>
+        <p class="lead">Landscape architecture student at Fu Jen Catholic University in Taipei.</p>
+        <p>
+          My work looks at landscapes under pressure: a lagoon disappearing from Taiwan’s oyster coast, a buried urban
+          creek, a former landfill on the Keelung shore. I am interested in how local and traditional ecological knowledge
+          can become working design mechanisms, and in where landscape meets technology.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-grid">
+      <h2 class="mono">Education</h2>
+      <ul class="cv">
+        {education.map((e) => (
+          <li><span class="when">{e.when}</span><span>{e.what}<small>{e.where}</small></span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="about-grid">
+      <h2 class="mono">Awards</h2>
+      <ul class="cv">
+        {awards.map((a) => (
+          <li><span class="when">{a.when}</span><span>{a.what}{a.note && <small>{a.note}</small>}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="about-grid">
+      <h2 class="mono">Contact</h2>
+      <div>
+        <p><a class="email" href={`mailto:${site.email}`}>{site.email}</a></p>
+        <p>{site.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.href} target="_blank" rel="noopener">{l.label}</a></>)}</p>
+      </div>
+    </section>
+  </div>
+</Base>

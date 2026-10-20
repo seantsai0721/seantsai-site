@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { workComponents } from '../../components/work';
+
+export async function getStaticPaths() {
+  const works = (await getCollection('works', ({ data }) => !data.draft)).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return works.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, index: i, next: works.length > 1 ? works[(i + 1) % works.length] : undefined },
+  }));
+}
+
+const { entry, index, next } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<Base title={d.title} description={d.subtitle} image={d.cover} current="works">
+  <article class="wrap">
+    <div class="p-head">
+      <div class="eyebrow mono">
+        <span>{num} / {d.year}</span>
+        {d.coordinates && <span>{d.coordinates}</span>}
+        <span>{d.kind}</span>
+      </div>
+      <h1>{d.title}</h1>
+      {d.titleZh && <p class="zh" lang="zh-Hant">{d.titleZh}</p>}
+      <p class="sub">{d.subtitle}</p>
+    </div>
+
+    {d.specs.length > 0 && (
+      <dl class="specs">
+        {d.specs.map((s) => (
+          <div class={s.highlight ? 'award' : undefined}>
+            <dt class="mono">{s.label}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+
+    <figure class="bleed">
+      <img src={d.cover} alt={d.coverAlt} />
+      {d.coverCaption && <figcaption class="mono">{d.coverCaption}</figcaption>}
+    </figure>
+
+    <Content components={workComponents} />
+
+    {next && (
+      <div class="next">
+        <span class="mono" style="color:var(--muted)">Next project</span>
+        <a href={`/works/${next.id}/`}>{next.data.title} →</a>
+      </div>
+    )}
+  </article>
+</Base>

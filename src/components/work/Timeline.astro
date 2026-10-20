@@ -1,0 +1,14 @@
+---
+// A vertical timeline. goal: true fills the dot with the accent colour.
+// <Timeline items={[{ when: "2027", title: "…", text: "…", goal: true }]} />
+interface Props { items: { when: string; title: string; text: string; goal?: boolean }[] }
+const { items } = Astro.props;
+---
+<ol class="timeline">
+  {items.map((i) => (
+    <li class={i.goal ? 'goal' : undefined}>
+      <span class="yr">{i.when}</span>
+      <div><b>{i.title}</b><span>{i.text}</span></div>
+    </li>
+  ))}
+</ol>

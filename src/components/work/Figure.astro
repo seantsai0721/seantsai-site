@@ -1,0 +1,26 @@
+---
+// An image with an optional caption.
+// variant="bleed"  full width of the page, between sections
+// variant="inline" (default) inside a section's text column
+// variant="wide"   very wide drawings (sections); scrolls sideways on phones
+// variant="board"  a full presentation board on white
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  variant?: 'inline' | 'bleed' | 'wide' | 'board';
+  style?: string;
+}
+const { src, alt, caption, variant = 'inline', style } = Astro.props;
+---
+{variant === 'wide' ? (
+  <div class="wide-section" style={style}>
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    {caption && <p class="mono" style="color:var(--muted);margin-top:10px">{caption}</p>}
+  </div>
+) : (
+  <figure class={variant === 'bleed' ? 'bleed' : variant === 'board' ? 'board' : undefined} style={style}>
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    {caption && <figcaption class="mono">{caption}</figcaption>}
+  </figure>
+)}

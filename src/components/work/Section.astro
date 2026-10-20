@@ -1,0 +1,13 @@
+---
+// A numbered text section: label column on the left, heading and text on the right.
+// <Section n="01" label="Site" title="Heading">text…</Section>
+interface Props { n: string; label: string; title: string }
+const { n, label, title } = Astro.props;
+---
+<section class="block">
+  <div class="label"><span class="n mono">{n}</span><span class="mono">{label}</span></div>
+  <div class="body">
+    <h3>{title}</h3>
+    <slot />
+  </div>
+</section>

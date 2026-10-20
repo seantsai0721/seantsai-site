@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+const works = (await getCollection('works', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const featured = works.filter((w) => w.data.featured);
+const years = works.map((w) => w.data.year);
+const span = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : '';
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base current="works">
+  <div class="wrap">
+    <h1 class="wordmark">{site.wordmark}<span>.</span></h1>
+    <div class="intro">
+      <div class="meta mono">
+        <span>{site.name} {site.nameZh}</span>
+        <span>{site.role}</span>
+        <span>{site.school}</span>
+        <span>{site.city}</span>
+      </div>
+      <p class="lede">{site.lede}</p>
+    </div>
+
+    <div class="section-head" id="works">
+      <h2>Projects.</h2>
+      <span class="mono">({pad(works.length)}) {span}</span>
+    </div>
+
+    {featured.length > 0 && (
+      <div class="cards">
+        {featured.map((w) => (
+          <a class="feature" href={`/works/${w.id}/`}>
+            <div class="bar">
+              <strong>{w.data.title}</strong>
+              <span class="tags mono">{w.data.tags.join(' · ')}</span>
+            </div>
+            <div class="frame">
+              <img src={w.data.cover} alt={w.data.coverAlt} />
+            </div>
+            <span class="cta mono">{w.data.year} · {w.data.location} →</span>
+          </a>
+        ))}
+      </div>
+    )}
+
+    <ul class="index" aria-label="All projects">
+      {works.map((w) => (
+        <li class="live">
+          <span class="y mono">{w.data.year}</span>
+          <span class="t"><a href={`/works/${w.id}/`}>{w.data.title}</a></span>
+          <span class="k mono">{w.data.kind} · {w.data.location}</span>
+          <span class="s mono">View →</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>

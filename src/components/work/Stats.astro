@@ -1,0 +1,10 @@
+---
+// A row of big numbers.
+// <Stats items={[{ value: "48.8%", label: "of Taiwan's oysters…" }]} />
+// tone="accent" colours the numbers (use for outcomes).
+interface Props { items: { value: string; label: string }[]; tone?: 'plain' | 'accent' }
+const { items, tone = 'plain' } = Astro.props;
+---
+<div class={tone === 'accent' ? 'stats outcome' : 'stats'}>
+  {items.map((s) => <div><b>{s.value}</b><span>{s.label}</span></div>)}
+</div>

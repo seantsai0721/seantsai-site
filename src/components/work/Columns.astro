@@ -1,0 +1,15 @@
+---
+// Three short columns, e.g. zones or reaches of a plan.
+// <Columns items={[{ kicker: "Zone 1", title: "…", text: "…" }]} />
+interface Props { items: { kicker?: string; title: string; text: string }[] }
+const { items } = Astro.props;
+---
+<div class="tri">
+  {items.map((c) => (
+    <div>
+      {c.kicker && <span class="mono">{c.kicker}</span>}
+      <b>{c.title}</b>
+      <p>{c.text}</p>
+    </div>
+  ))}
+</div>

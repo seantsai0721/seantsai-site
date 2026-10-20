@@ -1,0 +1,31 @@
+---
+// A 12-month band chart. start is the month position (0 = first month in `months`).
+// <SeasonCalendar months={["Oct", …]} bands={[{ label: "Purification", start: 2, span: 4, tone: "teal" }]}
+//   track={{ label: "Oyster nursery → finishing", start: 0, span: 6 }} />
+interface Props {
+  months: string[];
+  bands: { label: string; start: number; span: number; tone?: 'teal' | 'ochre' }[];
+  track?: { label: string; start: number; span: number };
+  description?: string;
+}
+const { months, bands, track, description } = Astro.props;
+const pct = (n: number) => `${(n / months.length) * 100}%`;
+---
+<div class="calendar" role="img" aria-label={description ?? bands.map((b) => b.label).join(', ')}>
+  <div class="cal">
+    <div class="cal-bands">
+      {bands.map((b) => (
+        <div class={b.tone === 'ochre' ? 'band wet' : 'band dry'} style={`left:${pct(b.start)};width:${pct(b.span)}`}>{b.label}</div>
+      ))}
+    </div>
+    <div class="cal-row cal-months" style={`grid-template-columns:repeat(${months.length},1fr)`}>
+      {months.map((m) => <span>{m}</span>)}
+    </div>
+    {track && (
+      <div class="cal-oyster">
+        <i style={`left:${pct(track.start)};width:${pct(track.span)}`}></i>
+        <em style={`left:calc(${pct(track.start + track.span)} + 8px)`}>{track.label}</em>
+      </div>
+    )}
+  </div>
+</div>
