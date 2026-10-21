@@ -1,0 +1,13 @@
+// Cloudflare Workers settings for the seantsai site.
+// The site is fully static: Astro builds it into ./dist and Cloudflare serves those files.
+{
+  "name": "seantsai-site",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./dist",
+    // Unknown URLs show the site's own 404 page.
+    "not_found_handling": "404-page"
+  },
+  // Lets non-main branches deploy to their own preview URL.
+  "previews": {}
+}
