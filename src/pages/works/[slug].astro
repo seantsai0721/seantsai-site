@@ -20,7 +20,7 @@ const num = String(index + 1).padStart(2, '0');
 ---
 
 <Base title={d.title} description={d.subtitle} image={d.cover} current="works">
-  <article class="wrap">
+  <article class="wrap" style={d.accent ? `--accent:${d.accent}` : undefined}>
     <div class="p-head">
       <div class="eyebrow mono">
         <span>{num} / {d.year}</span>

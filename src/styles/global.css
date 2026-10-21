@@ -6,8 +6,8 @@
   --fg: #141716;
   --muted: #5d6662;
   --rule: #dde2df;
-  --accent: #2f6f69;      /* lagoon teal, from the boards */
-  --ochre: #9a7a2c;       /* oyster-shell ochre */
+  --accent: #8a6c22;      /* ochre: the site's one accent on general pages */
+  --ochre: #8a6c22;       /* awards; stays ochre even inside project pages */
   --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
   --body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -239,7 +239,7 @@ header.nav { view-transition-name: site-nav; }
 
 /* home: an unpaired last card spans the full row */
 @media (min-width: 861px) and (max-width: 1100px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-/* colour system: teal marks the brand (every title's closing dot, links, current page);
-   ochre marks achievements (awards) only */
+/* colour system: general pages use one accent, ochre, for every coloured dot, link and label.
+   Each project page swaps --accent for a colour taken from its own drawings (set by `accent` in the .mdx). */
 .dot { color: var(--accent); }
 .about-grid h2.award-head { color: var(--ochre); }
