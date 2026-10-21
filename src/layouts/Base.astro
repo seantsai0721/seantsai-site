@@ -40,8 +40,21 @@ const year = new Date().getFullYear();
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
     />
+    <script is:inline>
+      // Mark that scripts run (enables scroll reveal) and play the intro only once per visit.
+      document.documentElement.classList.add('js');
+      try {
+        if (sessionStorage.getItem('intro-seen')) document.documentElement.classList.add('intro-seen');
+        else sessionStorage.setItem('intro-seen', '1');
+      } catch (e) {}
+    </script>
   </head>
   <body>
+    <div class="intro" aria-hidden="true">
+      <div class="intro-word">
+        {[...site.wordmark].map((ch, i) => <span style={`animation-delay:${0.08 + i * 0.06}s`}>{ch}</span>)}<span class="dot" style={`animation-delay:${0.08 + site.wordmark.length * 0.06}s`}>.</span>
+      </div>
+    </div>
     <header class="nav">
       <div class="wrap">
         <a class="logo" href="/">{site.wordmark}<sup>LA</sup></a>
@@ -57,6 +70,34 @@ const year = new Date().getFullYear();
     <main>
       <slot />
     </main>
+
+    <script is:inline>
+      // Scroll reveal: each block fades up out of a blur the first time it enters the screen.
+      (function () {
+        if (!('IntersectionObserver' in window)) { document.documentElement.classList.remove('js'); return; }
+        var sel = 'main h1, main h2, main h3, main h4, main p, main li, main dl > div, main figure, main .wide-section, main .feature, main .stats > div, main .tri > div, main .calendar, main .eyebrow, main .meta, main .credits, footer .wrap > div';
+        var els = [];
+        document.querySelectorAll(sel).forEach(function (el) {
+          if (el.closest('.rv')) return; // a parent already animates
+          el.classList.add('rv');
+          if (el.matches('figure, .wide-section, .feature')) el.classList.add('rv-media');
+          els.push(el);
+        });
+        var io = new IntersectionObserver(function (entries) {
+          var batch = 0;
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            e.target.style.setProperty('--rv-delay', Math.min(batch++ * 0.07, 0.42) + 's');
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+        var start = function () { els.forEach(function (el) { io.observe(el); }); };
+        // On the first visit, wait for the intro curtain to lift before revealing what's on screen.
+        var introPlays = !document.documentElement.classList.contains('intro-seen') && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (introPlays) setTimeout(start, 1500); else start();
+      })();
+    </script>
 
     <footer>
       <div class="wrap">
