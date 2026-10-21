@@ -9,10 +9,11 @@ const education = [
 ];
 
 const experience = [
+  { when: '2026', what: 'Intern, AECOM Taiwan', note: 'Jul–Aug' },
   { when: '2025', what: 'Intern, dA VISION DESIGN', note: 'Jul–Aug' },
   { when: '2025', what: 'Part-time assistant, Takano Landscape Planning Taiwan', note: 'Jan–Feb' },
   { when: '2024', what: 'Intern, Takano Landscape Planning Taiwan', note: 'Jul–Aug' },
-  { when: '2025–26', what: 'Chair, Graduation Exhibition Committee', note: 'Department of Landscape Architecture, Fu Jen' },
+  { when: '2025–26', what: 'Convener, Graduation Exhibition Committee', note: 'Department of Landscape Architecture, Fu Jen' },
   { when: '2024–25', what: 'President, Landscape Architecture Student Association', note: 'Fu Jen Catholic University' },
 ];
 
@@ -59,11 +60,23 @@ const awardGroups = [
     <section class="about-grid">
       <h2 class="mono">Profile</h2>
       <div>
-        <p class="lead">Landscape architecture student at Fu Jen Catholic University in Taipei.</p>
+        <p class="lead">
+          Sheng-En (Sean) Tsai is a first-year graduate student in Landscape Architecture at Fu Jen Catholic University,
+          working across natural and urban landscape planning and design.
+        </p>
         <p>
-          My work looks at landscapes under pressure: a lagoon disappearing from Taiwan’s oyster coast, a buried urban
-          creek, a former landfill on the Keelung shore. I am interested in how local and traditional ecological knowledge
-          can become working design mechanisms, and in where landscape meets technology.
+          His projects deal with landscapes under pressure: a lagoon disappearing from Taiwan’s oyster coast, a polluted
+          urban creek, a former landfill on the Keelung shore. He is interested in how local and traditional ecological
+          knowledge can become working design mechanisms.
+        </p>
+        <p>
+          In 2025 he earned four international awards in the IFLA Global Studio Program: First Place overall, Second Prize
+          at the Nantes and Mumbai charrettes, and an Honorary Award in Wuhan. He also holds several national design
+          competition awards, graduated first in his class and ranked first in graduate admissions.
+        </p>
+        <p>
+          He has interned at AECOM Taiwan and two Taiwan-based landscape planning and design firms, and has led teams as
+          President of the department student association and Convener of the Graduation Exhibition Committee.
         </p>
       </div>
     </section>
@@ -88,7 +101,7 @@ const awardGroups = [
 
     {awardGroups.map((g, gi) => (
       <section class="about-grid">
-        <h2 class="mono">{gi === 0 ? 'Awards · ' : ''}{g.title}</h2>
+        <h2 class="mono award-head">{gi === 0 ? 'Awards · ' : ''}{g.title}</h2>
         <ul class="cv">
           {g.items.map((a) => (
             <li><span class="when">{a.when}</span><span>{a.href ? <a href={a.href}>{a.what}</a> : a.what}{a.note && <small>{a.note}</small>}</span></li>
