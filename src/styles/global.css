@@ -169,14 +169,14 @@ header.nav { view-transition-name: site-nav; }
 @keyframes vt-in { from { opacity: 0; filter: blur(8px); } }
 
 /* first-visit intro: the wordmark sharpens letter by letter, then the curtain lifts */
-.intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--bg); pointer-events: none;
+.site-intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--bg); pointer-events: none;
   animation: intro-lift .8s cubic-bezier(.76, 0, .24, 1) 1.25s forwards; }
-.intro-word { font-family: var(--display); font-weight: 800; letter-spacing: -.065em; line-height: .82; font-size: clamp(56px, 16vw, 240px); color: var(--fg); }
-.intro-word span { display: inline-block; opacity: 0; filter: blur(14px); transform: translateY(.12em); animation: intro-letter .7s cubic-bezier(.2, .7, .2, 1) forwards; }
-.intro-word span.dot { color: var(--accent); }
+.site-intro-word { font-family: var(--display); font-weight: 800; letter-spacing: -.065em; line-height: .82; font-size: clamp(56px, 16vw, 240px); color: var(--fg); }
+.site-intro-word span { display: inline-block; opacity: 0; filter: blur(14px); transform: translateY(.12em); animation: intro-letter .7s cubic-bezier(.2, .7, .2, 1) forwards; }
+.site-intro-word span.dot { color: var(--accent); }
 @keyframes intro-letter { to { opacity: 1; filter: blur(0); transform: none; } }
 @keyframes intro-lift { to { transform: translateY(-100%); visibility: hidden; } }
-.intro-seen .intro { display: none; }
+.intro-seen .site-intro { display: none; }
 
 /* scroll reveal: text comes up out of a blur as it enters the screen */
 .js .rv { opacity: 0; filter: blur(10px); transform: translateY(18px);
@@ -186,7 +186,7 @@ header.nav { view-transition-name: site-nav; }
 
 @media (prefers-reduced-motion: reduce) {
   .feature img { transition: none; }
-  .intro { display: none; }
+  .site-intro { display: none; }
   .js .rv { opacity: 1; filter: none; transform: none; transition: none; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }

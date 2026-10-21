@@ -50,8 +50,8 @@ const year = new Date().getFullYear();
     </script>
   </head>
   <body>
-    <div class="intro" aria-hidden="true">
-      <div class="intro-word">
+    <div class="site-intro" aria-hidden="true">
+      <div class="site-intro-word">
         {[...site.wordmark].map((ch, i) => <span style={`animation-delay:${0.08 + i * 0.06}s`}>{ch}</span>)}<span class="dot" style={`animation-delay:${0.08 + site.wordmark.length * 0.06}s`}>.</span>
       </div>
     </div>
