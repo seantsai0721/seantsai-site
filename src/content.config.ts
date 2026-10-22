@@ -20,6 +20,8 @@ const works = defineCollection({
     cover: z.string(),
     coverAlt: z.string(),
     coverCaption: z.string().optional(),
+    // Optional different image for the homepage card (defaults to cover).
+    thumb: z.string().optional(),
     // Colour for this project's numbers, labels and highlights, taken from its drawings.
     accent: z.string().optional(),
     featured: z.boolean().default(false),

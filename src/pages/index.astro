@@ -38,7 +38,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
               <span class="tags mono">{w.data.tags.join(' · ')}</span>
             </div>
             <div class="frame">
-              <img src={w.data.cover} alt={w.data.coverAlt} />
+              <img src={w.data.thumb ?? w.data.cover} alt={w.data.coverAlt} />
             </div>
             <span class="cta mono">{w.data.year} · {w.data.location} →</span>
           </a>
