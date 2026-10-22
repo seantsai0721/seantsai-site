@@ -6,7 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
-  current?: 'works' | 'about';
+  current?: 'works' | 'lab' | 'about';
 }
 
 const { title, description = site.description, image = '/og-default.jpg', current } = Astro.props;
@@ -61,6 +61,7 @@ const year = new Date().getFullYear();
         <nav aria-label="Main">
           <ul>
             <li><a href="/#works" aria-current={current === 'works' ? 'page' : undefined}>Works</a></li>
+            <li><a href="/lab/" aria-current={current === 'lab' ? 'page' : undefined}>Lab</a></li>
             <li><a href="/about/" aria-current={current === 'about' ? 'page' : undefined}>About</a></li>
           </ul>
         </nav>
@@ -79,6 +80,7 @@ const year = new Date().getFullYear();
         var els = [];
         document.querySelectorAll(sel).forEach(function (el) {
           if (el.closest('.rv')) return; // a parent already animates
+          if (el.closest('.lightbox')) return;
           el.classList.add('rv');
           if (el.matches('figure, .wide-section, .feature')) el.classList.add('rv-media');
           els.push(el);

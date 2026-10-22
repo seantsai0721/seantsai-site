@@ -243,3 +243,35 @@ header.nav { view-transition-name: site-nav; }
    Each project page swaps --accent for a colour taken from its own drawings (set by `accent` in the .mdx). */
 .dot { color: var(--accent); }
 .about-grid h2.award-head { color: var(--ochre); }
+
+/* ---------- Lab ---------- */
+.lab-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(28px, 4vw, 48px); padding-bottom: 20px; border-bottom: 1px solid var(--fg); }
+.lab-filter button { font: inherit; letter-spacing: inherit; text-transform: inherit; background: none; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.lab-filter button span { margin-left: 4px; opacity: .7; }
+.lab-filter button:hover { color: var(--fg); border-color: var(--fg); }
+.lab-filter button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.lab-grid { list-style: none; margin: 28px 0 0; padding: 0; columns: 3; column-gap: clamp(16px, 2vw, 28px); }
+.lab-item { break-inside: avoid; margin: 0 0 clamp(20px, 2.4vw, 32px); }
+.lab-open { display: block; width: 100%; padding: 0; border: 0; background: var(--surface); cursor: zoom-in; overflow: hidden; }
+.lab-open img { width: 100%; height: auto; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.lab-open:hover img { transform: scale(1.02); }
+.lab-cap { display: grid; gap: 2px; margin-top: 10px; }
+.lab-cap strong { font-size: 15px; font-weight: 600; }
+.lab-cap .mono { color: var(--muted); font-size: 11px; }
+.lightbox { position: fixed; inset: 0; z-index: 200; background: color-mix(in srgb, var(--bg) 96%, transparent); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  padding: calc(56px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lightbox figure { margin: 0; display: grid; gap: 12px; justify-items: center; min-width: 0; max-height: 100%; }
+.lightbox img { max-width: 100%; max-height: calc(100vh - 170px); width: auto; height: auto; object-fit: contain; }
+.lightbox figcaption { display: grid; gap: 2px; text-align: center; }
+.lightbox figcaption .mono { color: var(--muted); }
+.lightbox button { background: none; border: 0; color: var(--fg); cursor: pointer; font: inherit; }
+.lb-prev, .lb-next { font-size: 28px; padding: 12px; }
+.lb-prev:hover, .lb-next:hover, .lb-close:hover { color: var(--accent); }
+.lb-close { position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); font-size: 12px; padding: 8px; }
+@media (max-width: 1100px) { .lab-grid { columns: 2; } }
+@media (max-width: 600px) {
+  .lab-grid { columns: 1; }
+  .lightbox { grid-template-columns: 1fr; }
+  .lb-prev, .lb-next { display: none; }
+}
+.lightbox[hidden], .lab-item[hidden] { display: none; }

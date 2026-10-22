@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import { lab } from '../data/lab';
+const count = (k: string) => lab.filter((i) => i.kind === k).length;
+---
+
+<Base title="Lab" description="Sketches and digital fabrication by Sean Tsai." current="lab">
+  <div class="wrap">
+    <div class="p-head">
+      <div class="eyebrow mono"><span>Sketches and fabrication</span><span>({String(lab.length).padStart(2, '0')})</span></div>
+      <h1>Lab<span class="dot">.</span></h1>
+      <p class="sub">Drawing on site, and making things by hand and machine.</p>
+    </div>
+
+    <div class="lab-filter mono" role="group" aria-label="Filter">
+      <button type="button" data-filter="all" aria-pressed="true">All <span>{lab.length}</span></button>
+      <button type="button" data-filter="sketch" aria-pressed="false">Sketches <span>{count('sketch')}</span></button>
+      <button type="button" data-filter="fabrication" aria-pressed="false">Fabrication <span>{count('fabrication')}</span></button>
+    </div>
+
+    <ul class="lab-grid">
+      {lab.map((item, i) => (
+        <li class="lab-item" data-kind={item.kind}>
+          <button type="button" class="lab-open" data-index={i} aria-label={`Open ${item.title}`}>
+            <img src={item.src} alt={item.alt} width={item.width} height={item.height} loading={i < 6 ? 'eager' : 'lazy'} decoding="async" />
+          </button>
+          <div class="lab-cap">
+            <strong>{item.title}</strong>
+            <span class="mono">{item.meta}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="lightbox" hidden aria-modal="true" role="dialog" aria-label="Image viewer">
+    <button type="button" class="lb-close mono" aria-label="Close">Close ✕</button>
+    <button type="button" class="lb-prev" aria-label="Previous">←</button>
+    <figure>
+      <img alt="" />
+      <figcaption><strong></strong><span class="mono"></span></figcaption>
+    </figure>
+    <button type="button" class="lb-next" aria-label="Next">→</button>
+  </div>
+
+  <script is:inline define:vars={{ items: lab }}>
+    (function () {
+      var grid = document.querySelector('.lab-grid');
+      var buttons = document.querySelectorAll('.lab-filter button');
+      var current = 'all';
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          current = b.dataset.filter;
+          buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+          grid.querySelectorAll('.lab-item').forEach(function (li) {
+            li.hidden = current !== 'all' && li.dataset.kind !== current;
+          });
+        });
+      });
+
+      var lb = document.querySelector('.lightbox');
+      var img = lb.querySelector('img');
+      var title = lb.querySelector('figcaption strong');
+      var meta = lb.querySelector('figcaption span');
+      var idx = 0, last = null;
+      function visible() {
+        return items.map(function (_, i) { return i; }).filter(function (i) { return current === 'all' || items[i].kind === current; });
+      }
+      function show(i) {
+        idx = i; var it = items[i];
+        img.src = it.src; img.alt = it.alt; title.textContent = it.title; meta.textContent = it.meta;
+      }
+      function step(d) {
+        var v = visible(); var p = v.indexOf(idx);
+        show(v[(p + d + v.length) % v.length]);
+      }
+      function open(i) { last = document.activeElement; show(i); lb.hidden = false; document.body.style.overflow = 'hidden'; lb.querySelector('.lb-close').focus(); }
+      function close() { lb.hidden = true; document.body.style.overflow = ''; if (last) last.focus(); }
+      grid.addEventListener('click', function (e) {
+        var b = e.target.closest('.lab-open'); if (b) open(+b.dataset.index);
+      });
+      lb.querySelector('.lb-close').addEventListener('click', close);
+      lb.querySelector('.lb-prev').addEventListener('click', function () { step(-1); });
+      lb.querySelector('.lb-next').addEventListener('click', function () { step(1); });
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (lb.hidden) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') step(-1);
+        if (e.key === 'ArrowRight') step(1);
+      });
+      var sx = 0;
+      lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', function (e) { var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); });
+    })();
+  </script>
+</Base>
