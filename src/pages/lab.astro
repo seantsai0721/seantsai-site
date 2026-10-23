@@ -7,7 +7,7 @@ const count = (k: string) => lab.filter((i) => i.kind === k).length;
 <Base title="Lab" description="Sketches and digital fabrication by Sean Tsai." current="lab">
   <div class="wrap">
     <div class="p-head">
-      <div class="eyebrow mono"><span>Sketches and fabrication</span><span>({String(lab.length).padStart(2, '0')})</span></div>
+      <div class="eyebrow mono"><span>Sketches, drawings and fabrication</span><span>({String(lab.length).padStart(2, '0')})</span></div>
       <h1>Lab<span class="dot">.</span></h1>
       <p class="sub">Drawing on site, and making things by hand and machine.</p>
     </div>
@@ -15,6 +15,7 @@ const count = (k: string) => lab.filter((i) => i.kind === k).length;
     <div class="lab-filter mono" role="group" aria-label="Filter">
       <button type="button" data-filter="all" aria-pressed="true">All <span>{lab.length}</span></button>
       <button type="button" data-filter="sketch" aria-pressed="false">Sketches <span>{count('sketch')}</span></button>
+      <button type="button" data-filter="automotive" aria-pressed="false">Automotive <span>{count('automotive')}</span></button>
       <button type="button" data-filter="fabrication" aria-pressed="false">Fabrication <span>{count('fabrication')}</span></button>
     </div>
 
